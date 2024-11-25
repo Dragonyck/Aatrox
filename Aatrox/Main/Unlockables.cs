@@ -48,7 +48,7 @@ namespace Aatrox
 
 namespace Aatrox.Achievements
 {
-    [RegisterAchievement("ROB_AATROX_MASTERYUNLOCKABLE", "ACHIEVEMENT_ROB_AATROX_MASTERYUNLOCKABLE_UNLOCKABLE_ID", null, null)]
+    [RegisterAchievement("ROB_AATROX_MASTERYUNLOCKABLE", "ACHIEVEMENT_ROB_AATROX_MASTERYUNLOCKABLE_UNLOCKABLE_ID", null, 10, null)]
     public class MasteryUnlockable : BasePerSurvivorClearGameMonsoonAchievement
     {
         public override BodyIndex LookUpRequiredBodyIndex()
@@ -56,7 +56,7 @@ namespace Aatrox.Achievements
             return BodyCatalog.FindBodyIndex("AatroxBody");
         }
     }
-    [RegisterAchievement("ROB_AATROX_GOLDUNLOCKABLE", "ACHIEVEMENT_ROB_AATROX_GOLDUNLOCKABLE_UNLOCKABLE_ID", null, null)]
+    [RegisterAchievement("ROB_AATROX_GOLDUNLOCKABLE", "ACHIEVEMENT_ROB_AATROX_GOLDUNLOCKABLE_UNLOCKABLE_ID", null, 10, null)]
     public class GoldUnlockable : BaseAchievement
     {
         public override BodyIndex LookUpRequiredBodyIndex()
@@ -86,7 +86,7 @@ namespace Aatrox.Achievements
             StyleMeter.OnStyleChanged -= this.StyleCheck;
         }
     }
-    [RegisterAchievement("ROB_AATROX_SUPERUNLOCKABLE", "ACHIEVEMENT_ROB_AATROX_SUPERUNLOCKABLE_UNLOCKABLE_ID", null, null)]
+    [RegisterAchievement("ROB_AATROX_SUPERUNLOCKABLE", "ACHIEVEMENT_ROB_AATROX_SUPERUNLOCKABLE_UNLOCKABLE_ID", null, 10, null)]
     public class SuperUnlockable : BaseAchievement
     {
         public override BodyIndex LookUpRequiredBodyIndex()

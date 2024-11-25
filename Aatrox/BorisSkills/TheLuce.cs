@@ -58,7 +58,6 @@ namespace EntityStates.Boris
 
         public override void OnExit()
         {
-            base.OnExit();
 
             base.PlayAnimation("FullBody, Override", "BufferEmpty");
 
@@ -67,6 +66,7 @@ namespace EntityStates.Boris
                 this.outer.SetNextState(new BorisEndTransformation());
                 return;
             }
+            base.OnExit();
         }
 
         public override void FixedUpdate()

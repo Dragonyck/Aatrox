@@ -2,6 +2,7 @@
 using EntityStates.Merc;
 using RoR2;
 using UnityEngine;
+using static Aatrox.Assets;
 
 namespace EntityStates.Aatrox
 {
@@ -34,10 +35,10 @@ namespace EntityStates.Aatrox
             this.duration = AatroxLungeFollowup.baseDuration / this.attackSpeedStat;
             this.slashTime = this.duration * 0.25f;
 
-            this.overlapAttack = base.InitMeleeOverlap(AatroxLungeFollowup.baseDamageCoefficient, Assets.critFX, base.GetModelTransform(), AatroxLungeFollowup.hitboxString);
+            this.overlapAttack = base.InitMeleeOverlap(AatroxLungeFollowup.baseDamageCoefficient, critFX, base.GetModelTransform(), AatroxLungeFollowup.hitboxString);
             this.overlapAttack.damageType = DamageType.Generic;
 
-            this.swingEffectPrefab = Assets.lungeFX;
+            this.swingEffectPrefab = lungeFX;
 
             this.aatroxController = base.GetComponent<AatroxController>();
 
@@ -53,10 +54,10 @@ namespace EntityStates.Aatrox
 
         public override void OnExit()
         {
-            base.OnExit();
 
             //if (base.skillLocator) base.skillLocator.primary.stateMachine.customName = "Weapon";
             if (this.aatroxController) this.aatroxController.EndSkill();
+            base.OnExit();
         }
 
         public void RefundStock()
@@ -110,7 +111,7 @@ namespace EntityStates.Aatrox
                         if (base.modelLocator)
                         {
                             Transform pos = base.modelLocator.modelBaseTransform;
-                            //GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.critFX, pos.position + (pos.forward * 1.5f) + (Vector3.up * 0.9f) + (pos.right * UnityEngine.Random.Range(-2, 2)), pos.rotation), 1);
+                            //GameObject.Destroy(GameObject.Instantiate<GameObject>(critFX, pos.position + (pos.forward * 1.5f) + (Vector3.up * 0.9f) + (pos.right * UnityEngine.Random.Range(-2, 2)), pos.rotation), 1);
                         }
 
                         this.RefundStock();

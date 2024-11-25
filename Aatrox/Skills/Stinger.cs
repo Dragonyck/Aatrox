@@ -3,6 +3,7 @@ using EntityStates.Merc;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Aatrox
 {
@@ -35,21 +36,22 @@ namespace EntityStates.Aatrox
         public override void OnEnter()
         {
             base.OnEnter();
-            if (NetworkServer.active)
+            /*if (NetworkServer.active)
             {
-                /*base.healthComponent.TakeDamage(new DamageInfo
+                base.healthComponent.TakeDamage(new DamageInfo
                 {
                     damage = base.healthComponent.combinedHealth * StaticValues.skillHealthCost,
                     attacker = base.characterBody.gameObject,
                     position = base.characterBody.corePosition,
                     damageType = DamageType.NonLethal,
                     damageColorIndex = DamageColorIndex.Bleed
-                });*/
-            }
+                });
+            }*/
             Util.PlaySound(Sounds.AatroxStinger, base.gameObject);
 
             this.modelTransform = base.GetModelTransform();
             this.aatroxController = base.GetComponent<AatroxController>();
+            aatroxController.SelfDamage();
 
             if (this.aatroxController) this.aatroxController.skillUseCount++;
 
@@ -78,7 +80,7 @@ namespace EntityStates.Aatrox
             this.dashVector = base.inputBank.aimDirection;
             this.dashVector.y = 0;
 
-            this.overlapAttack = base.InitMeleeOverlap(AatroxLunge.damageCoefficient, Assets.critFX, this.modelTransform, "Sword");
+            this.overlapAttack = base.InitMeleeOverlap(AatroxLunge.damageCoefficient, critFX, this.modelTransform, "Sword");
             this.overlapAttack.damageType = DamageType.BonusToLowHealth;
 
             /*if (NetworkServer.active)
@@ -123,13 +125,13 @@ namespace EntityStates.Aatrox
 
                 if (this.modelTransform)
                 {
-                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                     temporaryOverlay.duration = 0.7f;
                     temporaryOverlay.animateShaderAlpha = true;
                     temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                     temporaryOverlay.destroyComponentOnEnd = true;
                     temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matOnFire");
-                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                    temporaryOverlay.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
                 }
 
                 Util.PlaySound(Sounds.AatroxStinger, base.gameObject);
@@ -164,7 +166,7 @@ namespace EntityStates.Aatrox
                         /*if (base.modelLocator)
                         {
                             Transform pos = base.modelLocator.modelBaseTransform;
-                            GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.critFX, pos.position + (pos.forward * 1.5f) + (Vector3.up * 0.9f) + (pos.right * UnityEngine.Random.Range(-2, 2)), pos.rotation), 1);
+                            GameObject.Destroy(GameObject.Instantiate<GameObject>(critFX, pos.position + (pos.forward * 1.5f) + (Vector3.up * 0.9f) + (pos.right * UnityEngine.Random.Range(-2, 2)), pos.rotation), 1);
                         }*/
 
                         Util.PlaySound(Sounds.AatroxHeavySlash, base.gameObject);
@@ -175,13 +177,13 @@ namespace EntityStates.Aatrox
 
                         if (this.modelTransform)
                         {
-                            TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                            TemporaryOverlayInstance temporaryOverlay2 = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                             temporaryOverlay2.duration = Assaulter.hitPauseDuration / this.attackSpeedStat;
                             temporaryOverlay2.animateShaderAlpha = true;
                             temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                             temporaryOverlay2.destroyComponentOnEnd = true;
                             temporaryOverlay2.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matDoppelganger");
-                            temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                            temporaryOverlay2.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
                         }
 
                         stopwatch = AatroxLunge.dashDuration + AatroxLunge.dashPrepDuration / this.attackSpeedStat;

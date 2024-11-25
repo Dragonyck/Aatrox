@@ -3,6 +3,7 @@ using EntityStates.Merc;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Boris
 {
@@ -74,8 +75,8 @@ namespace EntityStates.Boris
                         base.PlayAnimation("FullBody, Override", "GroundLight1", "GroundLight.playbackRate", this.attackDuration);
                     }
                     this.slashChildName = "SlashPos";
-                    this.swingEffectPrefab = Assets.borisSlash1FX;
-                    this.hitEffectPrefab = Assets.borisHitFX;
+                    this.swingEffectPrefab = borisSlash1FX;
+                    this.hitEffectPrefab = borisHitFX;
                     this.attackSoundString = Sounds.BorisSwing;
                     break;
 
@@ -91,8 +92,8 @@ namespace EntityStates.Boris
                         base.PlayAnimation("FullBody, Override", "GroundLight2", "GroundLight.playbackRate", this.attackDuration);
                     }
                     this.slashChildName = "SlashPos";
-                    this.swingEffectPrefab = Assets.borisSlash2FX;
-                    this.hitEffectPrefab = Assets.borisHitFX;
+                    this.swingEffectPrefab = borisSlash2FX;
+                    this.hitEffectPrefab = borisHitFX;
                     this.attackSoundString = Sounds.BorisSwing;
                     break;
 
@@ -109,8 +110,8 @@ namespace EntityStates.Boris
                         base.PlayAnimation("FullBody, Override", "GroundLight3", "GroundLight.playbackRate", this.attackDuration);
                     }
                     this.slashChildName = "SlashPos";
-                    this.swingEffectPrefab = Assets.borisSlash3FX;
-                    this.hitEffectPrefab = Assets.borisHitFX;
+                    this.swingEffectPrefab = borisSlash3FX;
+                    this.hitEffectPrefab = borisHitFX;
                     this.attackSoundString = Sounds.BorisThrust;
                     break;
             }
@@ -122,13 +123,13 @@ namespace EntityStates.Boris
 
         public override void OnExit()
         {
-            base.OnExit();
 
             if (base.skillLocator.special.stock <= 0)
             {
                 this.outer.SetNextState(new BorisEndTransformation());
                 return;
             }
+            base.OnExit();
         }
 
         public override void FixedUpdate()

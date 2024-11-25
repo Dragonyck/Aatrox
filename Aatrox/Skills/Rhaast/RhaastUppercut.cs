@@ -2,6 +2,7 @@
 using EntityStates.Merc;
 using RoR2;
 using UnityEngine;
+using static Aatrox.Assets;
 
 namespace EntityStates.Aatrox.Rhaast
 {
@@ -31,11 +32,11 @@ namespace EntityStates.Aatrox.Rhaast
 
             this.duration = Uppercut.baseDuration / this.attackSpeedStat;
 
-            this.overlapAttack = base.InitMeleeOverlap(RhaastUppercut.baseDamageCoefficient, Assets.critFX, base.GetModelTransform(), RhaastUppercut.hitboxString);
+            this.overlapAttack = base.InitMeleeOverlap(RhaastUppercut.baseDamageCoefficient, critFX, base.GetModelTransform(), RhaastUppercut.hitboxString);
             this.overlapAttack.forceVector = 0.8f * Vector3.up * Uppercut.upwardForceStrength;
             this.overlapAttack.damageType = DamageType.Stun1s;
 
-            this.swingEffectPrefab = Assets.uppercutFX;
+            this.swingEffectPrefab = uppercutFX;
 
             this.aatroxController = base.GetComponent<AatroxController>();
 
@@ -49,10 +50,10 @@ namespace EntityStates.Aatrox.Rhaast
 
         public override void OnExit()
         {
-            base.OnExit();
             //base.PlayAnimation("FullBody, Override", "UppercutExit");
 
             base.skillLocator.primary.skillDef.activationStateMachineName = "Weapon";
+            base.OnExit();
         }
 
         public void RefundStock()
@@ -98,7 +99,7 @@ namespace EntityStates.Aatrox.Rhaast
                         if (base.modelLocator)
                         {
                             Transform pos = base.modelLocator.modelBaseTransform;
-                            //GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.critFX, pos.position + (pos.forward * 1.5f) + (Vector3.up * 0.9f) + (pos.right * UnityEngine.Random.Range(-2, 2)), pos.rotation), 1);
+                            //GameObject.Destroy(GameObject.Instantiate<GameObject>(critFX, pos.position + (pos.forward * 1.5f) + (Vector3.up * 0.9f) + (pos.right * UnityEngine.Random.Range(-2, 2)), pos.rotation), 1);
                         }
 
                         /*if (!this.isInHitPause)

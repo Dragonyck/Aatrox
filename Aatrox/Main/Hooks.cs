@@ -34,8 +34,6 @@ namespace Aatrox
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
             On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
-            if (AatroxPlugin.styleUI.Value) On.RoR2.UI.HUD.OnEnable += HUDAwake;
-            else AkSoundEngine.SetRTPCValue("Style_Rank", 100);
             RoR2.ContentManagement.ContentManager.onContentPacksAssigned += LateSetup;
         }
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody self, RecalculateStatsAPI.StatHookEventArgs args)
@@ -125,7 +123,7 @@ namespace Aatrox
                             {
                                 styleObject.AddStyle(0f);
                             }
-                            if (info.damageType.HasFlag(DamageType.BypassBlock))
+                            if ((info.damageType & DamageType.BypassBlock) != DamageType.Generic)
                             {
                                 CharacterMotor charMotor = victim.GetComponent<CharacterMotor>();
 
@@ -143,7 +141,7 @@ namespace Aatrox
 
                                 healthComponent.Heal(healAmount, default(ProcChainMask), true);
                             }
-                            if (info.damageType.HasFlag(DamageType.BypassOneShotProtection))
+                            if ((info.damageType & DamageType.BypassOneShotProtection) != DamageType.Generic)
                             {
                                 info.damageType = DamageType.BonusToLowHealth;
 
@@ -165,7 +163,7 @@ namespace Aatrox
                                 OrbManager.instance.AddOrb(healOrb);
                             }
 
-                            if (info.damageType.HasFlag(DamageType.BypassArmor))
+                            if ((info.damageType & DamageType.BypassArmor) != DamageType.Generic)
                             {
                                 info.damageType = DamageType.Generic;
 
@@ -195,17 +193,6 @@ namespace Aatrox
             }
 
             orig(self, info, victim);
-        }
-
-        internal static void HUDAwake(On.RoR2.UI.HUD.orig_OnEnable orig, HUD self)
-        {
-            orig(self);
-
-            if (self.targetBodyObject)
-            {
-                self.gameObject.AddComponent<ExtraHUD>();
-                self.gameObject.AddComponent<SwapHUD>();
-            }
         }
 
         internal static void SettingsPanelControllerStart(On.RoR2.UI.SettingsPanelController.orig_Start orig, RoR2.UI.SettingsPanelController self)

@@ -18,17 +18,17 @@ namespace Aatrox
 
             SkinnedMeshRenderer mainRenderer = Reflection.GetFieldValue<SkinnedMeshRenderer>(characterModel, "mainSkinnedMeshRenderer");
 
-            AatroxPlugin.mainSkinIcon = LoadoutAPI.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(0.56f, 0.23f, 0.19f), new Color(0.14f, 0.14f, 0.19f), new Color(0.17f, 0.24f, 0.34f));
-            AatroxPlugin.justicarSkinIcon = LoadoutAPI.CreateSkinIcon(new Color(0.09f, 0.09f, 0.37f), new Color(0.48f, 0.23f, 0.57f), new Color(0.12f, 0.12f, 0.12f), new Color(0.19f, 0.21f, 0.36f));
-            AatroxPlugin.goldSkinIcon = LoadoutAPI.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(1f, 0.37f, 0f), new Color(0.27f, 0.23f, 0.12f), new Color(0.99f, 0.99f, 0.44f));
-            AatroxPlugin.superSkinIcon = LoadoutAPI.CreateSkinIcon(new Color(0.43f, 0.15f, 0.25f), new Color(0.95f, 0.17f, 0.08f), new Color(0.17f, 0.23f, 0.34f), new Color(1f, 0.47f, 0.21f));
+            AatroxPlugin.mainSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(0.56f, 0.23f, 0.19f), new Color(0.14f, 0.14f, 0.19f), new Color(0.17f, 0.24f, 0.34f));
+            AatroxPlugin.justicarSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.09f, 0.09f, 0.37f), new Color(0.48f, 0.23f, 0.57f), new Color(0.12f, 0.12f, 0.12f), new Color(0.19f, 0.21f, 0.36f));
+            AatroxPlugin.goldSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(1f, 0.37f, 0f), new Color(0.27f, 0.23f, 0.12f), new Color(0.99f, 0.99f, 0.44f));
+            AatroxPlugin.superSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.43f, 0.15f, 0.25f), new Color(0.95f, 0.17f, 0.08f), new Color(0.17f, 0.23f, 0.34f), new Color(1f, 0.47f, 0.21f));
 
             LanguageAPI.Add("AATROXBODY_DEFAULT_SKIN_NAME", "Default");
             LanguageAPI.Add("AATROXBODY_MASTERY_SKIN_NAME", "Voidborn");
             LanguageAPI.Add("AATROXBODY_GOLD_SKIN_NAME", "Gilded");
             LanguageAPI.Add("AATROXBODY_SUPER_SKIN_NAME", "Ultimate");
 
-            LoadoutAPI.SkinDefInfo skinDefInfo = default(LoadoutAPI.SkinDefInfo);
+            SkinDefInfo skinDefInfo = default(SkinDefInfo);
             skinDefInfo.BaseSkins = Array.Empty<SkinDef>();
             skinDefInfo.MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0];
             skinDefInfo.ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0];
@@ -128,11 +128,11 @@ namespace Aatrox
 
             skinDefInfo.RendererInfos = array;*/
 
-            SkinDef defaultSkin = LoadoutAPI.CreateNewSkinDef(skinDefInfo);
+            SkinDef defaultSkin = R2API.Skins.CreateNewSkinDef(skinDefInfo);
 
-            //LoadoutAPI.AddSkinToCharacter(aatroxPrefab, defaultSkin);
+            //R2API.Skins.AddSkinToCharacter(aatroxPrefab, defaultSkin);
 
-            LoadoutAPI.SkinDefInfo justicarSkinDefInfo = default(LoadoutAPI.SkinDefInfo);
+            SkinDefInfo justicarSkinDefInfo = default(SkinDefInfo);
             justicarSkinDefInfo.BaseSkins = Array.Empty<SkinDef>();
             justicarSkinDefInfo.MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0];
             justicarSkinDefInfo.ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0];
@@ -199,9 +199,9 @@ namespace Aatrox
 
             justicarSkinDefInfo.RendererInfos = array;
 
-            SkinDef justicarSkin = LoadoutAPI.CreateNewSkinDef(justicarSkinDefInfo);
+            SkinDef justicarSkin = R2API.Skins.CreateNewSkinDef(justicarSkinDefInfo);
 
-            LoadoutAPI.SkinDefInfo goldSkinDefInfo = default(LoadoutAPI.SkinDefInfo);
+            SkinDefInfo goldSkinDefInfo = default(SkinDefInfo);
             goldSkinDefInfo.BaseSkins = Array.Empty<SkinDef>();
             goldSkinDefInfo.MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0];
             goldSkinDefInfo.ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0];
@@ -268,9 +268,9 @@ namespace Aatrox
 
             goldSkinDefInfo.RendererInfos = array;
 
-            SkinDef goldSkin = LoadoutAPI.CreateNewSkinDef(goldSkinDefInfo);
+            SkinDef goldSkin = R2API.Skins.CreateNewSkinDef(goldSkinDefInfo);
 
-            LoadoutAPI.SkinDefInfo superSkinDefInfo = default(LoadoutAPI.SkinDefInfo);
+            SkinDefInfo superSkinDefInfo = default(SkinDefInfo);
             superSkinDefInfo.BaseSkins = Array.Empty<SkinDef>();
             superSkinDefInfo.MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0];
             superSkinDefInfo.ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0];
@@ -337,7 +337,7 @@ namespace Aatrox
 
             superSkinDefInfo.RendererInfos = array;
 
-            SkinDef superSkin = LoadoutAPI.CreateNewSkinDef(superSkinDefInfo);
+            SkinDef superSkin = R2API.Skins.CreateNewSkinDef(superSkinDefInfo);
 
             skinController.skins = new SkinDef[]
             {

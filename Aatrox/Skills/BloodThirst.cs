@@ -3,6 +3,7 @@ using EntityStates.Merc;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Aatrox
 {
@@ -152,8 +153,8 @@ namespace EntityStates.Aatrox
                     {
                         base.PlayAnimation("FullBody, Override", "GroundLight1", "GroundLight.playbackRate", this.attackDuration);
                     }
-                    this.swingEffectPrefab = Assets.combo1FX;
-                    this.hitEffectPrefab = Assets.hitFX;
+                    this.swingEffectPrefab = combo1FX;
+                    this.hitEffectPrefab = hitFX;
                     this.attackSoundString = Sounds.AatroxSwordSwing;
                     this.hitSoundString = Sounds.AatroxLightSlash;
                     this.overlapAttack.damageType = DamageType.BypassArmor;
@@ -170,8 +171,8 @@ namespace EntityStates.Aatrox
                     {
                         base.PlayAnimation("FullBody, Override", "GroundLight2", "GroundLight.playbackRate", this.attackDuration);
                     }
-                    this.swingEffectPrefab = Assets.combo2FX;
-                    this.hitEffectPrefab = Assets.hitFX;
+                    this.swingEffectPrefab = combo2FX;
+                    this.hitEffectPrefab = hitFX;
                     this.attackSoundString = Sounds.AatroxSwordSwing;
                     this.hitSoundString = Sounds.AatroxLightSlash;
                     this.overlapAttack.damageType = DamageType.BypassArmor;
@@ -195,8 +196,8 @@ namespace EntityStates.Aatrox
 
                     if (usedPrice)
                     {
-                        this.swingEffectPrefab = Assets.downslashFX;
-                        this.hitEffectPrefab = Assets.critFX;
+                        this.swingEffectPrefab = downslashFX;
+                        this.hitEffectPrefab = critFX;
                         this.attackSoundString = Sounds.AatroxSwordSwing;
                         this.hitSoundString = Sounds.AatroxHeavySlash;
                         this.overlapAttack.damageType = DamageType.BypassArmor;
@@ -204,8 +205,8 @@ namespace EntityStates.Aatrox
                     }
                     else
                     {
-                        this.swingEffectPrefab = Assets.combo3FX;
-                        this.hitEffectPrefab = Assets.healFX;
+                        this.swingEffectPrefab = combo3FX;
+                        this.hitEffectPrefab = healFX;
                         this.attackSoundString = Sounds.AatroxSwordSwing;
                         this.hitSoundString = Sounds.AatroxHeavySlash;
                         this.overlapAttack.damageType = DamageType.BypassOneShotProtection;
@@ -223,13 +224,12 @@ namespace EntityStates.Aatrox
 
         public override void OnExit()
         {
-            base.OnExit();
             if (this.aatroxController)
             {
                 this.aatroxController.EndSkill();
-                if (this.spendingHealth) this.aatroxController.SelfDamage();
+                //if (this.spendingHealth) this.aatroxController.SelfDamage();
             }
-
+            base.OnExit();
         }
 
         public override void FixedUpdate()

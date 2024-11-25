@@ -49,7 +49,7 @@ namespace EntityStates.Aatrox
                 //if (base.characterMotor.velocity.y < 0) base.characterMotor.velocity.y = 0;
             }
 
-            if (base.fixedAge >= (0.25f * this.duration) && base.isAuthority)
+            if (base.fixedAge >= (0.25f * this.duration))
             {
                 if (!projectileFired)
                 {
@@ -66,12 +66,15 @@ namespace EntityStates.Aatrox
                     }*/
                     EffectManager.SimpleMuzzleFlash(LemurianBruiserMonster.FireMegaFireball.muzzleflashEffectPrefab, base.gameObject, muzzleName, false);
 
-                    Ray aimRay = base.GetAimRay();
+                    if (base.isAuthority)
+                    {
+                        Ray aimRay = base.GetAimRay();
 
-                    Vector3 forward = Util.ApplySpread(aimRay.direction, 0f, 0f, 1f, 1f, 0, 0f);
+                        Vector3 forward = Util.ApplySpread(aimRay.direction, 0f, 0f, 1f, 1f, 0, 0f);
 
-                    ProjectileManager.instance.FireProjectile(AatroxPlugin.bladeProjectile, aimRay.origin - (spread * base.modelLocator.modelBaseTransform.right), Util.QuaternionSafeLookRotation(forward), base.gameObject, this.damageStat * damageCoefficient, force, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, LemurianBruiserMonster.FireMegaFireball.projectileSpeed * 2f);
-                    ProjectileManager.instance.FireProjectile(AatroxPlugin.bladeProjectile, aimRay.origin + (spread * base.modelLocator.modelBaseTransform.right), Util.QuaternionSafeLookRotation(forward), base.gameObject, this.damageStat * damageCoefficient, force, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, LemurianBruiserMonster.FireMegaFireball.projectileSpeed * 2f);
+                        ProjectileManager.instance.FireProjectile(AatroxPlugin.bladeProjectile, aimRay.origin - (spread * base.modelLocator.modelBaseTransform.right), Util.QuaternionSafeLookRotation(forward), base.gameObject, this.damageStat * damageCoefficient, force, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, LemurianBruiserMonster.FireMegaFireball.projectileSpeed * 2f);
+                        ProjectileManager.instance.FireProjectile(AatroxPlugin.bladeProjectile, aimRay.origin + (spread * base.modelLocator.modelBaseTransform.right), Util.QuaternionSafeLookRotation(forward), base.gameObject, this.damageStat * damageCoefficient, force, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, LemurianBruiserMonster.FireMegaFireball.projectileSpeed * 2f);
+                    }
 
                     this.projectileFired = true;
 

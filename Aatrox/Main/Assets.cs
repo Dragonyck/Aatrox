@@ -120,6 +120,21 @@ namespace Aatrox
                 manifestResourceStream2.Read(array, 0, array.Length);
                 SoundAPI.SoundBanks.Add(array);
             }
+            using (Stream manifestResourceStream4 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Aatrox.boris.bnk"))
+            {
+                byte[] array = new byte[manifestResourceStream4.Length];
+                manifestResourceStream4.Read(array, 0, array.Length);
+                SoundAPI.SoundBanks.Add(array);
+            }
+
+            using (Stream manifestResourceStream4 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Aatrox.Aatrox_Triggered.bnk"))
+            {
+                byte[] array = new byte[manifestResourceStream4.Length];
+                manifestResourceStream4.Read(array, 0, array.Length);
+                SoundAPI.SoundBanks.Add(array);
+            }
+
+            /*
 
             using (Stream manifestResourceStream3 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Aatrox.DevilTrigger.bnk"))
             {
@@ -128,24 +143,23 @@ namespace Aatrox
                 SoundAPI.SoundBanks.Add(array);
             }
 
-            using (Stream manifestResourceStream4 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Aatrox.boris.bnk"))
-            {
-                byte[] array = new byte[manifestResourceStream4.Length];
-                manifestResourceStream4.Read(array, 0, array.Length);
-                SoundAPI.SoundBanks.Add(array);
-            }
-
             using (Stream manifestResourceStream5 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Aatrox.AatroxInit.bnk"))
             {
                 byte[] array = new byte[manifestResourceStream5.Length];
                 manifestResourceStream5.Read(array, 0, array.Length);
                 SoundAPI.SoundBanks.Add(array);
+            }*/
+
+            if (AatroxPlugin.styleUI.Value)
+            {
+                Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/HUDSimple.prefab").WaitForCompletion().AddComponent<Aatrox.Main.HUDAdder>();
+                AkSoundEngine.SetRTPCValue("Style_Rank", 100);
             }
 
-            AatroxPlugin.mainSkinIcon = LoadoutAPI.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(0.56f, 0.23f, 0.19f), new Color(0.14f, 0.14f, 0.19f), new Color(0.17f, 0.24f, 0.34f));
-            AatroxPlugin.justicarSkinIcon = LoadoutAPI.CreateSkinIcon(new Color(0.09f, 0.09f, 0.37f), new Color(0.48f, 0.23f, 0.57f), new Color(0.12f, 0.12f, 0.12f), new Color(0.19f, 0.21f, 0.36f));
-            AatroxPlugin.goldSkinIcon = LoadoutAPI.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(1f, 0.37f, 0f), new Color(0.27f, 0.23f, 0.12f), new Color(0.99f, 0.99f, 0.44f));
-            AatroxPlugin.superSkinIcon = LoadoutAPI.CreateSkinIcon(new Color(0.43f, 0.15f, 0.25f), new Color(0.95f, 0.17f, 0.08f), new Color(0.17f, 0.23f, 0.34f), new Color(1f, 0.47f, 0.21f));
+            AatroxPlugin.mainSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(0.56f, 0.23f, 0.19f), new Color(0.14f, 0.14f, 0.19f), new Color(0.17f, 0.24f, 0.34f));
+            AatroxPlugin.justicarSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.09f, 0.09f, 0.37f), new Color(0.48f, 0.23f, 0.57f), new Color(0.12f, 0.12f, 0.12f), new Color(0.19f, 0.21f, 0.36f));
+            AatroxPlugin.goldSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(1f, 0.37f, 0f), new Color(0.27f, 0.23f, 0.12f), new Color(0.99f, 0.99f, 0.44f));
+            AatroxPlugin.superSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.43f, 0.15f, 0.25f), new Color(0.95f, 0.17f, 0.08f), new Color(0.17f, 0.23f, 0.34f), new Color(1f, 0.47f, 0.21f));
 
             charPortrait = mainAssetBundle.LoadAsset<Sprite>("texAatroxBody").texture;
             borisPortrait = secondaryAssetBundle.LoadAsset<Texture>("BorisBody");

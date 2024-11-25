@@ -2,6 +2,7 @@
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Aatrox
 {
@@ -50,21 +51,21 @@ namespace EntityStates.Aatrox
 
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                 temporaryOverlay.duration = 0.6f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matOnFire");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
 
-                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay2 = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                 temporaryOverlay2.duration = 0.7f;
                 temporaryOverlay2.animateShaderAlpha = true;
                 temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay2.destroyComponentOnEnd = true;
                 temporaryOverlay2.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matDoppelganger");
-                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay2.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
             }
 
             if (NetworkServer.active)
@@ -84,7 +85,7 @@ namespace EntityStates.Aatrox
 
         private void CreateFlightEffect(Vector3 origin)
         {
-            GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.flightFX, origin, Quaternion.Euler(Vector3.zero)), 5);
+            GameObject.Destroy(GameObject.Instantiate<GameObject>(flightFX, origin, Quaternion.Euler(Vector3.zero)), 5);
             /*EffectData effectData = new EffectData();
             effectData.rotation = Util.QuaternionSafeLookRotation(this.worldBlinkVector);
             effectData.origin = origin;
@@ -131,21 +132,21 @@ namespace EntityStates.Aatrox
 
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                 temporaryOverlay.duration = 0.6f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matOnFire");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
 
-                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay2 = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                 temporaryOverlay2.duration = 0.7f;
                 temporaryOverlay2.animateShaderAlpha = true;
                 temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay2.destroyComponentOnEnd = true;
                 temporaryOverlay2.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matDoppelganger");
-                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay2.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
             }
 
             if (NetworkServer.active)

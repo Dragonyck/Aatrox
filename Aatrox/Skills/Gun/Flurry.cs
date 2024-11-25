@@ -41,14 +41,14 @@ namespace EntityStates.Aatrox.Gun
 
         public override void OnExit()
         {
-            base.OnExit();
-
             if (base.skillLocator) base.skillLocator.primary.skillFamily.variants[1].skillDef.activationStateMachineName = "Weapon";
             base.PlayAnimation("FullBody, Override", "BufferEmpty");
             base.PlayAnimation("Gesture, Override", "FlurryEnd");
             Util.PlaySound(Sounds.AatroxFlurryEnd, base.gameObject);
 
             if (this.aatroxController) this.aatroxController.EndSkill();
+            base.OnExit();
+
         }
 
         private void FireBullet()

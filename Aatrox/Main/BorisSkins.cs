@@ -20,7 +20,7 @@ namespace Aatrox
 
             LanguageAPI.Add("BORISBODY_DEFAULT_SKIN_NAME", "Default");
 
-            LoadoutAPI.SkinDefInfo skinDefInfo = default(LoadoutAPI.SkinDefInfo);
+            SkinDefInfo skinDefInfo = default(SkinDefInfo);
             skinDefInfo.BaseSkins = Array.Empty<SkinDef>();
             skinDefInfo.MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0];
             skinDefInfo.ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0];
@@ -41,7 +41,7 @@ namespace Aatrox
             skinDefInfo.RootObject = model;
             skinDefInfo.UnlockableDef = null;
 
-            SkinDef defaultSkin = LoadoutAPI.CreateNewSkinDef(skinDefInfo);
+            SkinDef defaultSkin = R2API.Skins.CreateNewSkinDef(skinDefInfo);
 
             skinController.skins = new SkinDef[]
             {

@@ -36,13 +36,13 @@ namespace EntityStates.Boris
 
         public override void OnExit()
         {
-            base.OnExit();
-
             if (base.skillLocator.special.stock <= 0)
             {
                 this.outer.SetNextState(new BorisEndTransformation());
                 return;
             }
+            base.OnExit();
+
         }
 
         private void FireBlast()

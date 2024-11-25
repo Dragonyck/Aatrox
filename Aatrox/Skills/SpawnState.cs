@@ -2,6 +2,7 @@
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Aatrox
 {
@@ -34,18 +35,18 @@ namespace EntityStates.Aatrox
             if (this.childLocator)
             {
                 Transform pos = this.childLocator.FindChild(AatroxSpawnState.spawnEffectChildString);
-                GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisDeathFX, pos.position, pos.rotation), 32);
+                GameObject.Destroy(GameObject.Instantiate<GameObject>(borisDeathFX, pos.position, pos.rotation), 32);
             }
 
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                 temporaryOverlay.duration = 2.5f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matOnFire");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
             }
 
             base.PlayAnimation("FullBody, Override", "Spawn", "Spawn.playbackRate", AatroxSpawnState.duration + 0.5f);
@@ -53,7 +54,6 @@ namespace EntityStates.Aatrox
 
         public override void OnExit()
         {
-            base.OnExit();
 
             if (NetworkServer.active)
             {
@@ -62,16 +62,17 @@ namespace EntityStates.Aatrox
 
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                 temporaryOverlay.duration = 0.25f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matDoppelganger");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
             }
 
             if (this.aatroxController) this.aatroxController.ResetWeapon();
+            base.OnExit();
         }
 
         public override void FixedUpdate()

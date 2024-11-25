@@ -2,6 +2,7 @@
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Boris
 {
@@ -38,7 +39,7 @@ namespace EntityStates.Boris
             if (this.childLocator)
             {
                 Transform pos = this.childLocator.FindChild(BorisSpawnState.spawnEffectChildString);
-                GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisSpawnFX, pos.position, pos.rotation), 32);
+                GameObject.Destroy(GameObject.Instantiate<GameObject>(borisSpawnFX, pos.position, pos.rotation), 32);
             }
 
             base.PlayAnimation("Body", "Spawn", "Spawn.playbackRate", BorisSpawnState.duration);
@@ -46,12 +47,12 @@ namespace EntityStates.Boris
 
         public override void OnExit()
         {
-            base.OnExit();
-
             if (NetworkServer.active)
             {
                 base.characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
+            base.OnExit();
+
         }
 
         public override void FixedUpdate()

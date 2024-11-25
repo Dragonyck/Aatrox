@@ -2,6 +2,7 @@
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Boris
 {
@@ -61,19 +62,19 @@ namespace EntityStates.Boris
 
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                 temporaryOverlay.duration = 0.5f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matDoppelganger");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
             }
 
             if (this.childLocator)
             {
                 Transform chestPos = this.childLocator.FindChild("Spine3");
-                GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisJudgementStartFX, chestPos.position, chestPos.rotation), 32);
+                GameObject.Destroy(GameObject.Instantiate<GameObject>(borisJudgementStartFX, chestPos.position, chestPos.rotation), 32);
             }
 
             //if (base.skillLocator) base.skillLocator.special.RemoveAllStocks();
@@ -83,12 +84,12 @@ namespace EntityStates.Boris
 
         public override void OnExit()
         {
-            base.OnExit();
-
             if (base.cameraTargetParams)
             {
                 this.request.Dispose();
             }
+            base.OnExit();
+
         }
 
         private void FireBlast1()
@@ -114,10 +115,10 @@ namespace EntityStates.Boris
                     if (this.childLocator)
                     {
                         Transform slashPos = this.childLocator.FindChild("SlashPos");
-                        GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisCombo1FX, slashPos.position, slashPos.rotation), 1);
+                        GameObject.Destroy(GameObject.Instantiate<GameObject>(borisCombo1FX, slashPos.position, slashPos.rotation), 1);
 
                         Transform effectPos = this.childLocator.FindChild("Weapon_Tip");
-                        GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisJudgementFX, effectPos), 16);
+                        GameObject.Destroy(GameObject.Instantiate<GameObject>(borisJudgementFX, effectPos), 16);
                     }
 
                     new BlastAttack
@@ -157,10 +158,10 @@ namespace EntityStates.Boris
                     if (this.childLocator)
                     {
                         Transform slashPos = this.childLocator.FindChild("SlashPos");
-                        GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisCombo2FX, slashPos.position, slashPos.rotation), 1);
+                        GameObject.Destroy(GameObject.Instantiate<GameObject>(borisCombo2FX, slashPos.position, slashPos.rotation), 1);
 
                         Transform effectPos = this.childLocator.FindChild("Weapon_Tip");
-                        GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisJudgementFX, effectPos), 16);
+                        GameObject.Destroy(GameObject.Instantiate<GameObject>(borisJudgementFX, effectPos), 16);
                     }
 
                     /*EffectManager.SpawnEffect(BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
@@ -212,10 +213,10 @@ namespace EntityStates.Boris
                     if (this.childLocator)
                     {
                         Transform slashPos = this.childLocator.FindChild("SlashPos");
-                        GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisCombo1FX, slashPos.position, slashPos.rotation), 1);
+                        GameObject.Destroy(GameObject.Instantiate<GameObject>(borisCombo1FX, slashPos.position, slashPos.rotation), 1);
 
                         Transform effectPos = this.childLocator.FindChild("Weapon_Tip");
-                        GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisJudgementFX, effectPos), 16);
+                        GameObject.Destroy(GameObject.Instantiate<GameObject>(borisJudgementFX, effectPos), 16);
                     }
 
                     new BlastAttack
@@ -251,13 +252,13 @@ namespace EntityStates.Boris
 
                 if (this.modelTransform)
                 {
-                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(this.modelTransform.gameObject);
                     temporaryOverlay.duration = 1.5f;
                     temporaryOverlay.animateShaderAlpha = true;
                     temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                     temporaryOverlay.destroyComponentOnEnd = true;
                     temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matOnFire");
-                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                    temporaryOverlay.AddToCharacterModel(this.modelTransform.GetComponent<CharacterModel>());
                 }
             }
         }
@@ -317,7 +318,7 @@ namespace EntityStates.Boris
                     if (this.childLocator)
                     {
                         Transform pos = this.childLocator.FindChild("Spine3");
-                        GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.borisExplosionFX, pos.position, pos.rotation), 32);
+                        GameObject.Destroy(GameObject.Instantiate<GameObject>(borisExplosionFX, pos.position, pos.rotation), 32);
                     }
 
                     if (this.borisController) this.borisController.AddStyle(BorisFinisher.finisherStyleCoefficient);

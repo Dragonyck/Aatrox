@@ -23,6 +23,7 @@ namespace Aatrox
 
         private void InitHUD()
         {
+            Debug.LogWarning("SwapHUD-InitHUD");
             this.hud = this.gameObject.GetComponent<HUD>();
             if (this.hud.targetMaster)
             {

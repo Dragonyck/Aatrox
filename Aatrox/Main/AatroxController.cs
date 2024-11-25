@@ -106,8 +106,8 @@ namespace Aatrox
             }
             charMotor = GetComponentInChildren<CharacterMotor>();
             inputBank = GetComponentInChildren<InputBankTest>();
-            childLocator = GetComponentInChildren<ChildLocator>();
-            animator = GetComponentInChildren<Animator>();
+            childLocator = charBody.modelLocator.modelTransform.GetComponent<ChildLocator>();
+            animator = childLocator.GetComponent<Animator>();
 
             Invoke("WorldEnderCheck", 0.1f);
 
@@ -146,10 +146,26 @@ namespace Aatrox
 
         private void HideWeapon()
         {
-            childLocator.FindChild("Weapon").transform.localScale = Vector3.one * 0.01f;
-            childLocator.FindChild("Rhaast").gameObject.SetActive(false);
-            childLocator.FindChild("GauntletL").gameObject.SetActive(false);
-            childLocator.FindChild("GauntletR").gameObject.SetActive(false);
+            var weapon = childLocator.FindChild("Weapon");
+            if (weapon)
+            {
+                weapon.transform.localScale = Vector3.one * 0.01f;
+            }
+            weapon = childLocator.FindChild("Rhaast");
+            if (weapon)
+            {
+                weapon.gameObject.SetActive(false);
+            }
+            weapon = childLocator.FindChild("GauntletL");
+            if (weapon)
+            {
+                weapon.gameObject.SetActive(false);
+            }
+            weapon = childLocator.FindChild("GauntletR");
+            if (weapon)
+            {
+                weapon.gameObject.SetActive(false);
+            }
         }
 
         public void ResetWeapon()
@@ -208,17 +224,35 @@ namespace Aatrox
         {
             HideWeapon();
 
+            Transform weapon = null;
+
             switch (weaponIndex)
             {
                 case 0:
-                    childLocator.FindChild("Weapon").transform.localScale = Vector3.one;
+                    weapon = childLocator.FindChild("Weapon");
+                    if (weapon)
+                    {
+                        weapon.transform.localScale = Vector3.one;
+                    }
                     break;
                 case 1:
-                    childLocator.FindChild("Rhaast").gameObject.SetActive(true);
+                    weapon = childLocator.FindChild("Rhaast");
+                    if (weapon)
+                    {
+                        weapon.gameObject.SetActive(true);
+                    }
                     break;
                 case 2:
-                    childLocator.FindChild("GauntletL").gameObject.SetActive(true);
-                    childLocator.FindChild("GauntletR").gameObject.SetActive(true);
+                    weapon = childLocator.FindChild("GauntletL");
+                    if (weapon)
+                    {
+                        weapon.gameObject.SetActive(true);
+                    }
+                    weapon = childLocator.FindChild("GauntletR");
+                    if (weapon)
+                    {
+                        weapon.gameObject.SetActive(true);
+                    }
                     break;
                 //case 4:
                     //childLocator.FindChild("Needler").gameObject.SetActive(true);
@@ -388,7 +422,7 @@ namespace Aatrox
                 if (charBody && NetworkServer.active) charBody.AddBuff(AatroxPlugin.massacreBuff);
             }
 
-            if (charBody) charBody.RecalculateStats();
+            //if (charBody) charBody.RecalculateStats();
         }
 
         public bool CastMassacre()
@@ -420,7 +454,7 @@ namespace Aatrox
                     else AkSoundEngine.StopPlayingID(massacrePlayID);
                 }
 
-                if (charBody) charBody.RecalculateStats();
+                //if (charBody) charBody.RecalculateStats();
             }
             else
             {
@@ -442,7 +476,7 @@ namespace Aatrox
 
                 if (!AatroxPlugin.buryTheLight.Value)
                 {
-                    if (AatroxPlugin.devilTrigger.Value && !AatroxPlugin.buryTheLight.Value)
+                    if (AatroxPlugin.devilTrigger.Value)
                     {
                         if (massacrePlayID == 0) massacrePlayID = Util.PlaySound(Sounds.DevilTrigger, base.gameObject);
                         else massacrePlayID = Util.PlaySound(Sounds.DevilTriggerResume, base.gameObject);
@@ -551,7 +585,7 @@ namespace Aatrox
                     {
                         DamageInfo damageInfo = new DamageInfo();
                         damageInfo.damage = charHealth.combinedHealth * StaticValues.skillHealthCost;
-                        damageInfo.position = chest.position;
+                        damageInfo.position = charBody.corePosition;
                         damageInfo.force = Vector3.zero;
                         damageInfo.damageColorIndex = DamageColorIndex.Bleed;
                         damageInfo.crit = false;
@@ -562,7 +596,7 @@ namespace Aatrox
                         damageInfo.procChainMask = default(ProcChainMask);
                         charHealth.TakeDamage(damageInfo);
 
-                        if (charBody) charBody.RecalculateStats();
+                        //if (charBody) charBody.RecalculateStats();
                     }
                 }
 

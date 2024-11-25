@@ -3,6 +3,7 @@ using EntityStates.Merc;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Aatrox.Rhaast
 {
@@ -130,8 +131,8 @@ namespace EntityStates.Aatrox.Rhaast
                     {
                         base.PlayAnimation("FullBody, Override", "GroundLight1", "GroundLight.playbackRate", this.attackDuration);
                     }
-                    this.swingEffectPrefab = Assets.combo1FX;
-                    this.hitEffectPrefab = Assets.hitFX;
+                    this.swingEffectPrefab = combo1FX;
+                    this.hitEffectPrefab = hitFX;
                     this.attackSoundString = Sounds.AatroxSwordSwing;
                     this.overlapAttack.damageType = DamageType.BypassBlock;
                     break;
@@ -147,8 +148,8 @@ namespace EntityStates.Aatrox.Rhaast
                     {
                         base.PlayAnimation("FullBody, Override", "GroundLight2", "GroundLight.playbackRate", this.attackDuration);
                     }
-                    this.swingEffectPrefab = Assets.combo2FX;
-                    this.hitEffectPrefab = Assets.hitFX;
+                    this.swingEffectPrefab = combo2FX;
+                    this.hitEffectPrefab = hitFX;
                     this.attackSoundString = Sounds.AatroxSwordSwing;
                     this.overlapAttack.damageType = DamageType.BypassBlock;
                     break;
@@ -163,8 +164,8 @@ namespace EntityStates.Aatrox.Rhaast
 
         public override void OnExit()
         {
-            base.OnExit();
             if (this.spendingHealth && this.aatroxController) this.aatroxController.SelfDamage();
+            base.OnExit();
         }
 
         public override void FixedUpdate()

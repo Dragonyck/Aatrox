@@ -128,13 +128,13 @@ namespace EntityStates.Aatrox
 
             if (this.modelTransform && BlinkState.destealthMaterial)
             {
-                TemporaryOverlay temporaryOverlay = this.animator.gameObject.AddComponent<TemporaryOverlay>();
+                /*TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(this.animator.gameObject);
                 temporaryOverlay.duration = 1f;
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = BlinkState.destealthMaterial;
                 temporaryOverlay.inspectorCharacterModel = this.animator.gameObject.GetComponent<CharacterModel>();
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
-                temporaryOverlay.animateShaderAlpha = true;
+                temporaryOverlay.animateShaderAlpha = true;*/
             }
 
             if (this.characterModel)

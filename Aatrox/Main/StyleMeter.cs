@@ -15,6 +15,7 @@ namespace Aatrox
 
         private void InitHUD()
         {
+            Debug.LogWarning("ExtraHUD-InitHUD");
             HUD self = this.gameObject.GetComponent<HUD>();
             if (self.targetMaster)
             {

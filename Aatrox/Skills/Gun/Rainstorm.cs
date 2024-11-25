@@ -39,13 +39,13 @@ namespace EntityStates.Aatrox.Gun
 
         public override void OnExit()
         {
-            base.OnExit();
-
             if (base.characterMotor.isGrounded) base.PlayAnimation("FullBody, Override", "BufferEmpty");
             else base.PlayAnimation("FullBody, Override", "RainstormExit", "FireGunDown.playbackRate", 1 / this.attackSpeedStat);
 
             if (this.aatroxController) this.aatroxController.EndSkill();
             //base.skillLocator.primary.skillDef.activationStateMachineName = "Weapon";
+            base.OnExit();
+
         }
 
         private void FireBullet()

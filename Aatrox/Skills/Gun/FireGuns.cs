@@ -117,9 +117,9 @@ namespace EntityStates.Aatrox.Gun
 
         public override void OnExit()
         {
+            if (this.aatroxController) this.aatroxController.EndSkill();
             base.OnExit();
 
-            if (this.aatroxController) this.aatroxController.EndSkill();
         }
 
         private void FireBullet()

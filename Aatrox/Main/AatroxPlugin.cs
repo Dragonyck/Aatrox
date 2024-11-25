@@ -29,11 +29,16 @@ using EmotesAPI;
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
 namespace Aatrox
 {
-    [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(PrefabAPI.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(SoundAPI.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(LanguageAPI.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(R2API.Skins.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(DamageAPI.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(RecalculateStatsAPI.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin(MODUID, "Aatrox", "4.3.4")]
+    [BepInPlugin(MODUID, "Aatrox", "4.4.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
-    [R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SoundAPI), nameof(LanguageAPI), nameof(LoadoutAPI), nameof(DamageAPI), nameof(RecalculateStatsAPI))]
+    [R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SoundAPI), nameof(LanguageAPI), nameof(Skins), nameof(DamageAPI), nameof(RecalculateStatsAPI))]
 
     public class AatroxPlugin : BaseUnityPlugin
     {
@@ -354,7 +359,7 @@ namespace Aatrox
             };
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
-            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+            characterModel.temporaryOverlays = new List<TemporaryOverlayInstance>();
 
             characterModel.SetFieldValue("mainSkinnedMeshRenderer", characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>());
 
@@ -531,7 +536,7 @@ namespace Aatrox
             };
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
-            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+            characterModel.temporaryOverlays = new List<TemporaryOverlayInstance>();
 
             Material material = null;
             for (int i = 0; i < characterModel.baseRendererInfos.Length; i++)
@@ -606,29 +611,25 @@ namespace Aatrox
             KinematicCharacterMotor kinematicCharacterMotor = aatroxPrefab.GetComponent<KinematicCharacterMotor>();
             kinematicCharacterMotor.CharacterController = characterMotor;
             kinematicCharacterMotor.Capsule = capsuleCollider;
-            kinematicCharacterMotor.Rigidbody = rigidbody;
+            kinematicCharacterMotor.playerCharacter = true;
 
             capsuleCollider.radius = 0.5f;
             capsuleCollider.height = 1.82f;
             capsuleCollider.center = new Vector3(0, 0, 0);
             capsuleCollider.material = null;
 
-            kinematicCharacterMotor.DetectDiscreteCollisions = false;
             kinematicCharacterMotor.GroundDetectionExtraDistance = 0f;
             kinematicCharacterMotor.MaxStepHeight = 0.2f;
             kinematicCharacterMotor.MinRequiredStepDepth = 0.1f;
             kinematicCharacterMotor.MaxStableSlopeAngle = 55f;
             kinematicCharacterMotor.MaxStableDistanceFromLedge = 0.5f;
-            kinematicCharacterMotor.PreventSnappingOnLedges = false;
             kinematicCharacterMotor.MaxStableDenivelationAngle = 55f;
             kinematicCharacterMotor.RigidbodyInteractionType = RigidbodyInteractionType.None;
             kinematicCharacterMotor.PreserveAttachedRigidbodyMomentum = true;
             kinematicCharacterMotor.HasPlanarConstraint = false;
             kinematicCharacterMotor.PlanarConstraintAxis = Vector3.up;
             kinematicCharacterMotor.StepHandling = StepHandlingMethod.None;
-            kinematicCharacterMotor.LedgeHandling = true;
             kinematicCharacterMotor.InteractiveRigidbodyHandling = true;
-            kinematicCharacterMotor.SafeMovement = false;
 
             HurtBoxGroup hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
 
@@ -872,7 +873,7 @@ namespace Aatrox
 
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
-            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+            characterModel.temporaryOverlays = new List<TemporaryOverlayInstance>();
 
             /*Material material = null;
             for (int i = 0; i < characterModel.baseRendererInfos.Length; i++)
@@ -950,24 +951,20 @@ namespace Aatrox
             KinematicCharacterMotor kinematicCharacterMotor = borisPrefab.GetComponent<KinematicCharacterMotor>();
             kinematicCharacterMotor.CharacterController = characterMotor;
             kinematicCharacterMotor.Capsule = capsuleCollider;
-            kinematicCharacterMotor.Rigidbody = rigidbody;
+            kinematicCharacterMotor.playerCharacter = true;
 
-            kinematicCharacterMotor.DetectDiscreteCollisions = false;
             kinematicCharacterMotor.GroundDetectionExtraDistance = 0f;
             kinematicCharacterMotor.MaxStepHeight = 0.2f;
             kinematicCharacterMotor.MinRequiredStepDepth = 0.1f;
             kinematicCharacterMotor.MaxStableSlopeAngle = 55f;
             kinematicCharacterMotor.MaxStableDistanceFromLedge = 0.5f;
-            kinematicCharacterMotor.PreventSnappingOnLedges = false;
             kinematicCharacterMotor.MaxStableDenivelationAngle = 55f;
             kinematicCharacterMotor.RigidbodyInteractionType = RigidbodyInteractionType.None;
             kinematicCharacterMotor.PreserveAttachedRigidbodyMomentum = true;
             kinematicCharacterMotor.HasPlanarConstraint = false;
             kinematicCharacterMotor.PlanarConstraintAxis = Vector3.up;
             kinematicCharacterMotor.StepHandling = StepHandlingMethod.None;
-            kinematicCharacterMotor.LedgeHandling = true;
             kinematicCharacterMotor.InteractiveRigidbodyHandling = true;
-            kinematicCharacterMotor.SafeMovement = false;
 
             HurtBoxGroup hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
 

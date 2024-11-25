@@ -34,14 +34,14 @@ namespace EntityStates.Aatrox
 
         public override void OnExit()
         {
-            base.OnExit();
-
             base.characterBody.hideCrosshair = false;
 
             if (base.GetAimAnimator()) base.GetAimAnimator().enabled = true;
 
             base.PlayAnimation("FullBody, Override", "BufferEmpty");
             if (this.activePlayID != 0) AkSoundEngine.StopPlayingID(this.activePlayID);
+
+            base.OnExit();
         }
 
         public override void FixedUpdate()

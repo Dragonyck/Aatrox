@@ -3,6 +3,7 @@ using EntityStates.Merc;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Aatrox.Assets;
 
 namespace EntityStates.Aatrox
 {
@@ -27,28 +28,29 @@ namespace EntityStates.Aatrox
         public override void OnEnter()
         {
             base.OnEnter();
-            if (NetworkServer.active)
+            /*if (NetworkServer.active)
             {
-                /*base.healthComponent.TakeDamage(new DamageInfo
+                base.healthComponent.TakeDamage(new DamageInfo
                 {
                     damage = base.healthComponent.combinedHealth * StaticValues.skillHealthCost,
                     attacker = base.characterBody.gameObject,
                     position = base.characterBody.corePosition,
                     damageType = DamageType.NonLethal,
                     damageColorIndex = DamageColorIndex.Bleed
-                });*/
-            }
+                });
+            }*/
             this.animator = base.GetModelAnimator();
 
             this.duration = Uppercut.baseDuration / this.attackSpeedStat;
 
-            this.overlapAttack = base.InitMeleeOverlap(AatroxUppercut.baseDamageCoefficient, Assets.critFX, base.GetModelTransform(), AatroxUppercut.hitboxString);
+            this.overlapAttack = base.InitMeleeOverlap(AatroxUppercut.baseDamageCoefficient, critFX, base.GetModelTransform(), AatroxUppercut.hitboxString);
             this.overlapAttack.forceVector = 0.8f * Vector3.up * Uppercut.upwardForceStrength;
             this.overlapAttack.damageType = DamageType.Stun1s;
 
-            this.swingEffectPrefab = Assets.uppercutFX;
+            this.swingEffectPrefab = uppercutFX;
 
             this.aatroxController = base.GetComponent<AatroxController>();
+            aatroxController.SelfDamage();
 
             if (this.aatroxController) this.aatroxController.skillUseCount++;
 
@@ -67,12 +69,12 @@ namespace EntityStates.Aatrox
 
         public override void OnExit()
         {
-            base.OnExit();
             //base.PlayAnimation("FullBody, Override", "UppercutExit");
 
             //if (base.skillLocator) base.skillLocator.primary.stateMachine.customName = "Weapon";
 
             if (this.aatroxController) this.aatroxController.EndSkill();
+            base.OnExit();
         }
 
         public void RefundStock()
@@ -118,7 +120,7 @@ namespace EntityStates.Aatrox
                         if (base.modelLocator)
                         {
                             Transform pos = base.modelLocator.modelBaseTransform;
-                            //GameObject.Destroy(GameObject.Instantiate<GameObject>(Assets.critFX, pos.position + (pos.forward * 1.5f) + (Vector3.up * 0.9f) + (pos.right * UnityEngine.Random.Range(-2, 2)), pos.rotation), 1);
+                            //GameObject.Destroy(GameObject.Instantiate<GameObject>(critFX, pos.position + (pos.forward * 1.5f) + (Vector3.up * 0.9f) + (pos.right * UnityEngine.Random.Range(-2, 2)), pos.rotation), 1);
                         }
 
                         if (!this.isInHitPause)
