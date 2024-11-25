@@ -38,7 +38,6 @@ namespace Aatrox
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(MODUID, "Aatrox", "4.4.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
-    [R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SoundAPI), nameof(LanguageAPI), nameof(Skins), nameof(DamageAPI), nameof(RecalculateStatsAPI))]
 
     public class AatroxPlugin : BaseUnityPlugin
     {
@@ -183,7 +182,7 @@ namespace Aatrox
             swordmasterBackKeybind = base.Config.Bind<KeyCode>(new ConfigDefinition("02 - Keybinds", "Back"), KeyCode.S, new ConfigDescription("Whatever key you use to move back(for Blood Price directional inputs)", null, Array.Empty<object>()));
 
 
-            if (devilTrigger.Value)
+            if (devilTrigger.Value || buryTheLight.Value)
             {
                 IL.RoR2.MusicController.LateUpdate += il =>
                 {
@@ -195,7 +194,7 @@ namespace Aatrox
                         if (b)
                             return true;
 
-                        return devilTriggerActive != 0;
+                        return  devilTriggerActive != 0;
                     });
                 };
             }

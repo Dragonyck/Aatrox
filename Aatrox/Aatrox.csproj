@@ -12,6 +12,7 @@
     <None Remove="boris" />
     <None Remove="boris.bnk" />
     <None Remove="DevilTrigger.bnk" />
+    <None Remove="Init.bnk" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
     <EmbeddedResource Include="boris" />
     <EmbeddedResource Include="boris.bnk" />
     <EmbeddedResource Include="DevilTrigger.bnk" />
+    <EmbeddedResource Include="Init.bnk" />
   </ItemGroup>
 
     <ItemGroup>

@@ -134,6 +134,13 @@ namespace Aatrox
                 SoundAPI.SoundBanks.Add(array);
             }
 
+            using (Stream manifestResourceStream5 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Aatrox.Init.bnk"))
+            {
+                byte[] array = new byte[manifestResourceStream5.Length];
+                manifestResourceStream5.Read(array, 0, array.Length);
+                SoundAPI.SoundBanks.Add(array);
+            }
+
             /*
 
             using (Stream manifestResourceStream3 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Aatrox.DevilTrigger.bnk"))
@@ -141,19 +148,12 @@ namespace Aatrox
                 byte[] array = new byte[manifestResourceStream3.Length];
                 manifestResourceStream3.Read(array, 0, array.Length);
                 SoundAPI.SoundBanks.Add(array);
-            }
-
-            using (Stream manifestResourceStream5 = Assembly.GetExecutingAssembly().GetManifestResourceStream("Aatrox.AatroxInit.bnk"))
-            {
-                byte[] array = new byte[manifestResourceStream5.Length];
-                manifestResourceStream5.Read(array, 0, array.Length);
-                SoundAPI.SoundBanks.Add(array);
             }*/
 
             if (AatroxPlugin.styleUI.Value)
             {
                 Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/HUDSimple.prefab").WaitForCompletion().AddComponent<Aatrox.Main.HUDAdder>();
-                AkSoundEngine.SetRTPCValue("Style_Rank", 100);
+                //AkSoundEngine.SetRTPCValue("Style_Rank", 100);
             }
 
             AatroxPlugin.mainSkinIcon = R2API.Skins.CreateSkinIcon(new Color(0.36f, 0.16f, 0.27f), new Color(0.56f, 0.23f, 0.19f), new Color(0.14f, 0.14f, 0.19f), new Color(0.17f, 0.24f, 0.34f));
